@@ -1,0 +1,28 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row"><h1 class="col-md-2">Posts</h1>
+            <div class="btn btn-success" style="margin-top:20px" class="col-md-2"><a href="/posts/new">Create post</a></div>
+        </div>
+
+        <div class="row">
+            {% for post in posts %}
+                <h2>{{post.title}}
+                    <p style="font-size:12px">
+                        <a href="{{ url_for('.edit_post', post_id=post.id)}}">Edit</a>
+                        <a href="{{ url_for('.delete_post', post_id=post.id)}}">Delete</a>
+                    </p>
+                </h2>
+                <p>
+                    {{post.text}}
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
