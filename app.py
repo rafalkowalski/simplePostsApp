@@ -2,12 +2,6 @@ import os
 import os.path as op
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
-
-from wtforms import validators
-
-from flask.ext import admin
-from flask.ext.admin.contrib import sqla
-from flask.ext.admin.contrib.sqla import filters
 from flask import request, url_for, redirect, render_template
 from forms.post_form import PostForm
 # Create application
@@ -36,11 +30,12 @@ class Post(db.Model):
     def __unicode__(self):
         return self.title
 
+
 @app.route('/')
 def index():
     posts = Post.query.all()
     return render_template('list.html',
-                       posts=posts)
+                           posts=posts)
 
 
 @app.route('/posts/new',  methods=('GET', 'POST'))
@@ -70,6 +65,7 @@ def edit_post(post_id):
     return render_template('create.html',
                            form=form)
 
+
 @app.route('/posts/<post_id>/delete', methods=('GET', 'POST'))
 def delete_post(post_id):
     post = Post.query.get(post_id)
@@ -78,23 +74,15 @@ def delete_post(post_id):
     return redirect(url_for('.index'))
 
 
-# Customized User model admin
-
 def build_sample_db():
     """
     Populate a small db with some example entries.
     """
-
-    import random
-    import datetime
-
     db.drop_all()
     db.create_all()
-
-    # Create sample Users
-
     db.session.commit()
     return
+
 
 if __name__ == '__main__':
     # Build a sample db on the fly, if one does not exist yet.
